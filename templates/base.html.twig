@@ -2,11 +2,77 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}TestHub!{% endblock %}</title>
+        {% block stylesheets %}
+
+            <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+            <meta name="description" content="description"/>
+            <meta name="keywords" content="keywords"/>
+            <meta name="author" content="author"/>
+            <link rel="stylesheet" type="text/css" href={{ asset('/default.css') }} media="screen"/>
+
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+
+        <div class="top">
+            <div class="header">
+                <div class="left">
+                    Beautiful Day
+                </div>
+                <div class="right">
+                    <h2>Рик наебщик?</h2>
+                    <p>РИК ГДЕ МАИ ДЕНЬГИ</p>
+                </div>
+            </div>
+        </div>
+            {% block header %}
+        <div class="container">	<div class="inner_copy"><div class="inner_copy">Шаблон с сайта cooltemplates.ru</div></div>
+            <div class="navigation">
+                <a href="/tests">Тесты</a>
+                <a href="#">Регистрация</a>
+                <a href="#">Вход</a>
+                <a href="#">О проекте</a>
+                <div class="clearer"><span></span></div>
+            </div>
+            {% endblock %}
+            {% block lastTest %}
+            <div class="main">
+                    <h1>Последний тесты</h1>
+                    <div class="content">
+                        <div class="descr">Астральная физика</div>
+                        <p>тег1 тег2 тег 3</p>
+                    </div>
+                {% endblock %}
+
+                {% block rightPanel %}
+                <div class="sidenav">
+                    <h2>Something</h2>
+                    <ul>
+                        <li><a href="#">pellentesque</a></li>
+                        <li><a href="#">sociis natoque</a></li>
+                        <li><a href="#">semper</a></li>
+                        <li><a href="#">convallis</a></li>
+                    </ul>
+
+                </div>
+                {% endblock %}
+                <div class="clearer"><span></span></div>
+            </div>
+            {% block footer %}
+            <div class="footer">
+                <div class="left">&copy; 2008 <a href="#">http://shablonfree.ru/</a>.</div>
+                <div class="right"><a href="http://shablonfree.ru/">Website template</a> by <a>Arcsin</a></div>
+                <div class="center">Создать магазин с помощью <a href="http://shablonfree.ru/">http://shablonfree.ru/</a></div>
+                <div class="clearer"><span></span></div>
+            </div>
+            {% endblock %}
+        </div>
+
+
+        {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
+
 </html>
