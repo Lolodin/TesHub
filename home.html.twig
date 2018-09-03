@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+  {% block lastTest %}
+{% for test in tests %}
+
+      <div class="main">
+          <h1>Последний тесты</h1>
+          <div class="content">
+              <div class="descr">{{ test.nameTest}}</div>
+              <p>{{ test.title }} Категория </p>
+          </div>
+
+{% endfor %}
+  {% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+       {% block header %}
+<div class="container">	<div class="inner_copy"><div class="inner_copy">Шаблон с сайта cooltemplates.ru</div></div>
+    <div class="navigation">
+        <a href="/new">Создать тест</a>
+        <a href="#">Регистрация</a>
+        <a href="#">Вход</a>
+        <a href="#">О проекте</a>
+        <div class="clearer"><span></span></div>
+    </div>
+    {% endblock %}
+
+  {% block lastTest %}
+      {% for test in tests %}
+          <div class="main">
+          <h1>Все тесты</h1>
+          <div class="content">
+              <div class="descr">{{ test.nameTest}}</div>
+              <p>{{ test.title }} Категория:{{ test.categoryID.category }}</p>
+          </div>
+      {% endfor %}
+  {% endblock %}
