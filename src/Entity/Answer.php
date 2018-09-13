@@ -60,7 +60,6 @@ class Answer
     }
 
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -82,7 +81,7 @@ class Answer
     /**
      * @param mixed $questions
      */
-    public function setQuestions($questions): void
+    public function setQuestions(Question $questions): void
     {
         $this->questions = $questions;
     }
