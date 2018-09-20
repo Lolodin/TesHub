@@ -1,8 +1,25 @@
 {% extends 'base.html.twig' %}
 
   {% block lastTest %}
+      <h1>Название Теста</h1>
  {{ form_start(form) }}
-{{ form_widget(form) }}
+
+      {{ form_row(form.nameTest) }}
+        {{ form_row(form.title) }}
+      <h3>Вопросы</h3>
+    <ul class = 'question' data-prototype ='{{ form_widget(form.question.vars.prototype)| e('html_attr') }}'>
+        {% for question in form.question %}
+            {{ form_row(question.question) }}
+            {{ form_row(question.point) }}
+            <h3>Ответы</h3>
+            <ul class="answer" data-prototype = '{{ form_widget(question.answer.vars.prototype)|e('html_attr') }}'>
+                {{ form_row(question.answer) }}</ul>
+            {% endfor %}
+
+    </ul>
+
+
+
 {{ form_end(form) }}
 
 
