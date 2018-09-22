@@ -9,14 +9,103 @@
       <h3>Вопросы</h3>
     <ul class = 'question' data-prototype ='{{ form_widget(form.question.vars.prototype)| e('html_attr') }}'>
         {% for question in form.question %}
+          <li>
             {{ form_row(question.question) }}
             {{ form_row(question.point) }}
+          </li>
             <h3>Ответы</h3>
             <ul class="answer" data-prototype = '{{ form_widget(question.answer.vars.prototype)|e('html_attr') }}'>
-                {{ form_row(question.answer) }}</ul>
+                <li> {{ form_row(question.answer) }}</li>
+            </ul>
             {% endfor %}
 
     </ul>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script>
+    var $CellectionHolder;
+    var $AnsweHolder;
+    var $addQuestLink = $('<a href="#" class="add_quest_link">Add a question</a>');
+    var $AnsweLink = $('<a href="#" class="add_answer_link">Add a answer</a>');
+    var $newLinkli = $('<li></li>').append($addQuestLink);
+    $newLinkli = $newLinkli.append($AnsweLink);
+    var $newLinkAnswer = $('<li></li>').append($AnsweLink);
+    jQuery(document).ready(function () {
+       $CellectionHolder = $('ul.question');
+       $AnsweHolder = $('ul.answer'); //
+       $CellectionHolder.append($newLinkli);
+       //$CellectionHolder.append($newLinkAnswer);
+       $AnsweHolder.append($newLinkAnswer); //
+       $CellectionHolder.data('index', $CellectionHolder.find(':input').length);
+       $AnsweHolder.data('index', $AnsweHolder.find(':input',).length);//
+        $addQuestLink.on('click', function (e) {
+            e.preventDefault();
+
+            addFormQuest($CellectionHolder, $newLinkli);
+
+            
+        });
+        $AnsweLink.on('click', function (e) {
+            e.preventDefault();
+            addFormAnswer($AnsweHolder, $newLinkAnswer);
+
+        })
+    });
+    function addFormQuest($CellectionHolder, $newLinkli) {
+        var prototype = $CellectionHolder.data('prototype');
+
+        var index = $CellectionHolder.data('index');
+        var newForm = prototype;
+        newForm = newForm.replace(/__name__g/, index);
+        $CellectionHolder.data('index', index + 1);
+        var $NewFormLi = $('<li></li>').append(newForm);
+        $newLinkli.before($NewFormLi);
+
+
+    }
+    function addFormAnswer($CellectionHolder, $newLinkli) {
+        var prototype = $CellectionHolder.data('prototype');
+        var index = $CellectionHolder.data('index');
+        var newForm = prototype;
+        newForm = newForm.replace(/__name__g/,index );
+        $CellectionHolder.data('index', index + 1);
+        var $NewFormLi = $('<li></li>').append(newForm);
+        $newLinkli.before($NewFormLi);
+
+
+
+
+
+    }
+
+        //Для ответов
+
+
+
+
+
+
+
+
+    </script>
+
+{#<script>#}
+    {#var $addQuestLink = $('<a href="#" class="add_tag_link">Add a answer</a>');#}
+    {#var $newLinkli = $('<li></li>').append($addQuestLink);#}
+    {#jQuery(document).ready(function () {#}
+        {#$CellectionHolder = $('ul.answer');#}
+        {#$CellectionHolder.append($newLinkli);#}
+        {#$CellectionHolder.data('index', $CellectionHolder.find(':input').length);#}
+        {#$addQuestLink.on('click', function (e) {#}
+            {#e.preventDefault();#}
+
+            {#addFormAnswer($CellectionHolder, $newLinkli);#}
+
+
+        {#});#}
+    {#});    var $CellectionHolder;#}
+
+    {##}
+{#</script>#}
 
 
 
