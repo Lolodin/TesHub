@@ -61,54 +61,24 @@ class DefaultController extends AbstractController
 
     }
 
+    /**
+     * @Route("/testsforms")
+     */
+public function newtestform()
+{
+    return $this->render('standart/test.html.twig');
+}
 
     /**
      * @Route("/new")
      */
 
-    public function testsForms(Request $request)
+    public function testsForms()
     {
-        //  создаёт задачу и задаёт в ней фиктивные данные для этого примера
-        $task = new Tests();
-        $task->setNameTest('Write a name tests');
-        $task->setTitle('Описание');
-         $question = new Question();
-        $question->setPoint(0);
-        $question->setQuestion('Tests forms');
-        $task->getQuestion()->add($question);
-        $question->setTests($task);
-        $answer = new Answer();
-        $answer->setAnswer('Da');
-        $answer->setCorrect(true);
-
-        $answer2 = new Answer();
-        $answer2->setCorrect(false);
-        $answer2->getAnswer('Net');
-        $question->getAnswer()->add($answer);
-        $question->getAnswer()->add($answer2);
-        $answer->setQuestions($question);
-        $answer2->setQuestions($question);
 
 
-        $form = $this->createForm(TestsType::class, $task);
 
-
-        $form->handleRequest($request);
-
-
-        if ($form->isSubmitted() && $form->isValid()) {
-           $em = $this->getDoctrine()->getManager();
-           $em->persist($answer2);
-           $em->persist($answer);
-           $em->persist($question);
-           $em->persist($task);
-           $em->flush();
-        }
-
-        return $this->render('standart/new.html.twig', array(
-            'form' => $form->createView()
-
-        ));
+        return $this->render('standart/new.html.twig');
 
     }
 
