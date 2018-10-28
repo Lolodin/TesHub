@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block lastTest %}
+
+    <script type="text/x-template" id="test-template">
+     <div                  >
+
+
+                <div @click="toggle"
+                     @dblclick="cHangleTypeQuest">{% verbatim %} {{model.name}} {% endverbatim %}</div>
+                 <ul  v-if="isFolderQuest" >[{% verbatim %} {{ open ? '-' : '+' }}{% endverbatim %}]</ul>
+         <div v-show="open" v-if="isFolderQuest">
+         <div class="test-todo" v-for="(model, index) in model.childQuest" :key="index" :model="model">{% verbatim %} {{model.name}} {% endverbatim %}</div>
+             <div class="add" @click="addAnswer">+</div>
+         </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+    <!-- the demo root element -->
+    <p id="demo">
+        <test-todo
+                class="test-todo"
+                :click="testsFunction"
+                :model="thRee"
+        >
+        </test-todo>
+    </p>
+    <p id="demo" :click="testsFunction">Кликни</p>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src={{ asset('JS/vueTests.js') }}></script>
+
+{% endblock %}
