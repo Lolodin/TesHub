@@ -1,62 +1,66 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE HTML>
+<html>
 
-  {% block lastTest %}
+<head>
+    <meta charset="utf-8">
+    <style>
+        table {
+            border-collapse: collapse;
+        }
 
-      <!-- item template -->
-      <script type="text/x-template" id="item-template">
-          <li>
-              <div
+        td {
+            border: 1px solid black;
+            padding: 3px 5px;
+        }
+    </style>
+</head>
 
-                      @click="toggle"
-                      @dblclick="changeType"
-                      >
-{% verbatim %}<div> {{ model.name }} {{this.indexComp}}
-{{model.idx}}
-</div>
-{% endverbatim %}
-                  <span v-if="isFolder">[{% verbatim %} {{ open ? '-' : '+' }}{% endverbatim %} ]</span>
-              </div>
-              <ul v-show="open" v-if="isFolder">
-                  <item
-                          class="item"
+<body>
+<table>
+    <tr>
+        <td>1:1</td>
+        <td>2:1</td>
+        <td>3:1</td>
+        <td>4:1</td>
+        <td>5:1</td>
+    </tr>
+    <tr>
+        <td>1:2</td>
+        <td>2:2</td>
+        <td>3:2</td>
+        <td>4:2</td>
+        <td>5:2</td>
+    </tr>
+    <tr>
+        <td>1:3</td>
+        <td>2:3</td>
+        <td>3:3</td>
+        <td>4:3</td>
+        <td>5:3</td>
+    </tr>
+    <tr>
+        <td>1:4</td>
+        <td>2:4</td>
+        <td>3:4</td>
+        <td>4:4</td>
+        <td>5:4</td>
+    </tr>
+    <tr>
+        <td>1:5</td>
+        <td>2:5</td>
+        <td>3:5</td>
+        <td>4:5</td>
+        <td>5:5</td>
+    </tr>
+</table>
+<script>
+    var table = document.body.children[0];
 
-                          v-for="(model, index) in model.children"
-                          :key="index"
-                          :model="model"
-                         >
-                  </item>
-                  <li class="add" @click="addChild">+</li>
-              </ul>
-          </li>
-      </script>
+    for (var i = 0; i < table.rows.length; i++) {
+        var row = table.rows[i];
+        row.cells[i].style.backgroundColor = 'green';
+    }
+</script>
+</body>
 
-      <p>(You can double click on an item to turn it into a folder.)</p>
-
-      <!-- the demo root element -->
-        <ul id="demo">
-          <item
-                  class="item"
-
-                  :model="treeData"
-          >
-          </item>
-      </ul>
-
-
-
-
-      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-      <script src={{ asset('JS/Tests.js') }}></script>
-
-
-
-
-
-
-
-
-
-
-
-
-  {% endblock %}
+</html>
