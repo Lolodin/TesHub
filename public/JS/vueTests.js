@@ -1,82 +1,36 @@
-var data ={
-    name: 'tests',
-    indexTest: 0,
-    childQuest:
-        [{
-        indexQuest: 0,
-        name: '_Quest_',
-        childAnswer:
-        [{
-            indexAnswer:0,
-            name: '_answer_'
+var question = document.querySelector('.questions');
+var newQuestion = document.createElement('div');
 
-        }]
-        }]
+var incrementQuestion = 0;
+var incrementAnswer = [0];
+newQuestion.innerHTML = '<input id="question" name="question'+ incrementQuestion+'" value="Вопрос">' +
+    '<br>'+
+    '<input id="answer" name="answer'+incrementAnswer[0]+'" value="Ответ">'+
+    '<br>'+
+    '<button>Добавить вариант ответа</button>'+
+    '<br>'+
+    '<button id="addQuest">Добавить вопрос</button>';
 
-
-}
-Vue.component('test-todo',{
-    template: '#test-template',
-    props:{
-        model: Object
-    },
-    data: function () {
-        return {
-            open: false
-        }
-    },
-    computed:
-       {
-           isFolderQuest: function () { //возвращаем массив
-        return this.model.childQuest &&
-            this.model.childQuest.length
-    },
-           isFolderAnswer: function () {
-               return this.model.childQuest.childAnswer &&
-                   this.model.childQuest.childAnswer.length
-           }},
-
-     methods:
-         {
-            toggle: function () {
-                this.open = !this.open
-            },
-             cHangleTypeQuest: function () {
-                 if(!this.isFolderQuest)
-                     Vue.set(this.model, 'childQuest',[] )
-                     this.addQuest()
-                     this.open= true
-
-             },
-             cHangleTypeAnswer: function () {
-                 if(!this.isFolderAnswer())
-                     Vue.set(this.model, 'childAnswer',[] )
-                 this.addAnswer()
-                 this.open= true
-             },
-             addQuest: function () {
-                 this.model.childQuest.push({
-                     name: 'testQuest'
-                 })
-             },
-             addAnswer: function () {
-                 this.model.childQuest.childAnswer.push({
-                     name: 'AnswerTest'
-                 })
-             },
-             testsFunction: function () {
-                 alert('Сработало')
-             }
+//Если ласт чилд то кнопка добавить вопрос активна
 
 
-
-         }
-
+console.log(addQuest);
 
 
-
+var addQuest = document.getElementById('addQuest');
+addQuest.addEventListener("click", function () {
+    alert('asf')
 })
-var tests = new Vue({
-    el: "#demo",
-    data: {thRee: data,}
-})
+
+console.log(question)
+// var miniatures = document.querySelectorAll('.gallery__picture-preview');
+// var bigpictures = document.querySelector('.full-picture');
+// var pictureHandler = function (pictures, miniatures ) {
+//     miniatures.addEventListener('click', function () {
+//         bigpictures.src = pictures;
+//     })
+// }
+// for(var i = 0; i<pictures.length;i++)
+// {
+//     pictureHandler(pictures[i], miniatures[i]);
+// }
