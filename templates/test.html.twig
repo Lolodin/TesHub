@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block lastTest %}
+    <p>Тут будет начало </p>
+    <form action="" method="post">
+    <div class="questions">
+        <div id="question0">
+            <label> Вопрос <input  name="question0" value="Вопрос"></label>
+        <br>
+            <label> Ответ &nbsp; <input  name="0answer0" value="Ответ"></label>
+        <br>
+        <button id="0" class="addAnswer">Добавить вариант ответа</button>
+        <br>
+        <button class="addQuest">Добавить вопрос</button>
+        </div>
+    </div>
+        <button class="addTest">Сохранить Тест</button>
+    </form>
+    <script src="{{ asset('JS/Tests.js') }}">
+
+{% endblock %}
