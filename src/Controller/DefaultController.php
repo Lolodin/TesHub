@@ -66,7 +66,10 @@ class DefaultController extends AbstractController
      */
 public function newtestform()
 {
+    dump($_POST);
+
     return $this->render('standart/test.html.twig');
+
 }
 
     /**
