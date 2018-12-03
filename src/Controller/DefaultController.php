@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 
+use App\components\TestForms;
 use App\Entity\Answer;
 use App\Entity\Category;
 use App\Entity\Categorys;
@@ -67,7 +68,9 @@ class DefaultController extends AbstractController
 public function newtestform()
 {
     dump($_POST);
-
+    $manager = $this->getDoctrine()->getManager();
+     $formHandler= new TestForms();
+   $formHandler->addFormstoBD($manager, $_POST);
     return $this->render('standart/test.html.twig');
 
 }
@@ -91,53 +94,42 @@ public function newtestform()
      */
     public function Test()
     {
-//        $repository = $this->getDoctrine()->getRepository(Category::class);
-////        $cat = $repository->find(4);
-//       $testManager = $this->getDoctrine()->getManager();
-//      $newTests = new Tests();
-//      $newTests->setCategoryID($cat);
-//      $newTests->setTitle('test');
-//      $newTests->setNameTest('TESTSs');
-//
+        $repository = $this->getDoctrine()->getRepository(Category::class);
+       $cat = $repository->find(4);
+    $testManager = $this->getDoctrine()->getManager();
+    $newTests = new Tests();
+    $newTests->setCategoryID($cat);
+     $newTests->setTitle('test');
+     $newTests->setNameTest('TESTSs');
+
 ////_____________________________________________________________
-//       $newQuestion = new Question();
-//       $newQuestion->setQuestion('Test?');
-//       $newQuestion->setTests($newTests);
-//       $newQuestion->setPoint(10);
-//
+      $newQuestion = new Question();
+      $newQuestion->setQuestion('Test?');
+      $newQuestion->setTests($newTests);
+      $newQuestion->setPoint(10);
+
 ////_____________________________________________________________
-//        $newAnswer=new Answer();
-//        $newAnswer->setCorrect(true);
-//        $newAnswer->setAnswer('Da');
-//        $newAnswer->setQuestions($newQuestion);
-//
-//        $newAnswer2 = new Answer();
-//        $newAnswer2->setCorrect(false);
-//        $newAnswer2->setAnswer('Net');
-//        $newAnswer2->setQuestions($newQuestion);
-//
-//
-//dump($newQuestion);
-//dump($newTests);
-//dump($newAnswer);
-//        $testManager->persist($newTests);
-//        $testManager->persist($newQuestion);
-//        $testManager->persist($newAnswer);
-//        $testManager->persist($newAnswer2);
-//        $testManager->flush();
+       $newAnswer=new Answer();
+        $newAnswer->setCorrect(true);
+        $newAnswer->setAnswer('Da');
+        $newAnswer->setQuestions($newQuestion);
+
+      $newAnswer2 = new Answer();
+      $newAnswer2->setCorrect(false);
+      $newAnswer2->setAnswer('Net');
+     $newAnswer2->setQuestions($newQuestion);
+
+       $testManager->persist($newTests);
+       $testManager->persist($newQuestion);
+       $testManager->persist($newAnswer);
+       $testManager->persist($newAnswer2);
+       $testManager->flush();
 
 //_____________________________________________________________
 
-$repository = $this->getDoctrine()->getRepository(Tests::class);
-$tests= $repository->find(12);
-$test = $tests->getQuestion()->getValues();
-$answers = $test[0];
-$a = $answers->getAnswer()->getValues();
 
-dump($tests);
-dump($test);
-dump($answers);
-dump($a);
+
+
 
     return new Response('Sohranili');
 

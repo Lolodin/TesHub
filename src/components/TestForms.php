@@ -26,7 +26,7 @@ function addFormstoBD($posts)
     foreach ($posts as $post=>$value)
     {
 
-        if (preg_match('/question0([0-9])/', $post))
+        if (preg_match('/question([0-9])/', $post))
         {
            $newQuestion = new Question();
            $newQuestion->setQuestion($value);
@@ -37,16 +37,53 @@ function addFormstoBD($posts)
             $newAnswer = new Answer();
             $newAnswer->setAnswer($value);
             $newAnswer->setQuestions($newQuestion);
-        }
+    }
     }
 }
 class TestForms
 {
-    public function addFormstoBD($posts)
+    public function addFormstoBD($manager, $posts)
     {
+        $testArray = array();
+        $newTest = new Tests();
+        $newTest ->setNameTest('TestsForms');
+        $newTest->setTitle('Тестируем добавление с формы');
+        $manager->persist($newTest);
+        $questionTumbler = null;
+        //________________________________________________
+
+
+
         foreach ($posts as $post=>$value)
         {
 
+
+            if (preg_match('/question([0-9])/', $post))
+            {
+                $newQuestion = new Question();
+                $newQuestion->setQuestion($value);
+                $newQuestion->setTests($newTest);
+                $newQuestion->setPoint(10);
+                 $manager->persist($newQuestion);
+            }
+            else
+            {
+                $newAnswer = new Answer();
+                $newAnswer->setAnswer($value);
+                $newAnswer->setCorrect(true);
+                $newAnswer->setQuestions($newQuestion);
+                $manager->persist($newAnswer);
+
+
+
+
+                           }
+
+
+                $manager->flush();
+
+
         }
+
     }
 }
