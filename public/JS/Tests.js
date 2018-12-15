@@ -20,6 +20,7 @@ document.onclick = function (event) {
          objectQuest.indexAnswer.push(0);
         newQuestion.id = "question" +objectQuest.indexQuest;
         newQuestion.innerHTML = '<input name="question' + objectQuest.indexQuest + '" value="Вопрос">' +
+            '<input class="polzun" name="score' + objectQuest.indexQuest + '" type="number" value="0">'+
             '<br>' +
             '<input name="' + objectQuest.indexQuest + 'answer0[]' + '" value="Ответ">' +
             '<input type="checkbox" name="' + objectQuest.indexQuest +'answer0[]" value="true">'+

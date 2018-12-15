@@ -33,15 +33,17 @@ class DefaultController extends AbstractController
 {
 
     /**
-     * @\Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("/news/{slug}")
+     * @\Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("/news")
      */
 
-    public function show($slug)
+    public function show()
     {
-        return $this->render('standart/main.html.twig',
-        [
-            'title'=> ucwords(str_replace("_", " ", $slug)),
-    ]);
+
+
+            return $this->render('standart/main.html.twig');
+
+
+
 
     }
 
@@ -52,41 +54,23 @@ class DefaultController extends AbstractController
 
 
     {
-        $test = array();
-        $repository = $this->getDoctrine()->getRepository(Tests::class);
-        $test = $repository->findAll();
 
-        dump($test);
-
-        return $this->render('standart/home.html.twig', ['tests'=> $test]);
 
     }
-
-    /**
-     * @Route("/testsforms")
-     */
-public function newtestform()
-{
-    dump($_POST);
-    $manager = $this->getDoctrine()->getManager();
-     $formHandler= new TestForms();
-   $formHandler->addFormstoBD($manager, $_POST);
-    return $this->render('standart/test.html.twig');
-
-}
 
     /**
      * @Route("/new")
      */
+public function newtestform()
+{
+    var_dump($_SERVER);
+    dump($_POST);
+   $manager = $this->getDoctrine()->getManager();
+   $formHandler= new TestForms();
+   $formHandler->addFormstoBD($manager, $_POST);
+    return $this->render('standart/test.html.twig');
 
-    public function testsForms()
-    {
-
-
-
-        return $this->render('standart/new.html.twig');
-
-    }
+}
 
 
     /**
@@ -94,48 +78,37 @@ public function newtestform()
      */
     public function Test()
     {
-        $repository = $this->getDoctrine()->getRepository(Category::class);
-       $cat = $repository->find(4);
-    $testManager = $this->getDoctrine()->getManager();
-    $newTests = new Tests();
-    $newTests->setCategoryID($cat);
-     $newTests->setTitle('test');
-     $newTests->setNameTest('TESTSs');
+        $test = array();
+        $repository = $this->getDoctrine()->getRepository(Tests::class);
+        $test = $repository->findAll();
+        $ajaxTest = json_encode($test);
+        dump($ajaxTest);
+        var_dump($ajaxTest);
+        dump($test);
 
-////_____________________________________________________________
-      $newQuestion = new Question();
-      $newQuestion->setQuestion('Test?');
-      $newQuestion->setTests($newTests);
-      $newQuestion->setPoint(10);
+        return $this->render('standart/tests.html.twig', ['tests'=> $test]);
 
-////_____________________________________________________________
-       $newAnswer=new Answer();
-        $newAnswer->setCorrect(true);
-        $newAnswer->setAnswer('Da');
-        $newAnswer->setQuestions($newQuestion);
+    }
+    /**
+     * @Route("/tests/{id}")
+     */
+    public function TestID($id)
+    {
+        $repository = $this->getDoctrine()->getRepository(Tests::class);
+        $test = $repository->find($id);
 
-      $newAnswer2 = new Answer();
-      $newAnswer2->setCorrect(false);
-      $newAnswer2->setAnswer('Net');
-     $newAnswer2->setQuestions($newQuestion);
-
-       $testManager->persist($newTests);
-       $testManager->persist($newQuestion);
-       $testManager->persist($newAnswer);
-       $testManager->persist($newAnswer2);
-       $testManager->flush();
-
-//_____________________________________________________________
+        dump($test);
 
 
+        return $this->render('standart/comesTest.html.twig',['test'=> $test]);
+    }
 
-
-
-    return new Response('Sohranili');
-
-//       return $this->render('standart/tests.html.twig', ['tests'=>$tests]);
-
-
+    /**
+     * @Route("/mypage")
+     */
+    public function myPage()
+    {
+        return $this->render('standart/main.html.twig');
     }
 
 }

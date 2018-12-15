@@ -11,45 +11,21 @@ use App\Entity\Answer;
 use App\Entity\Question;
 use App\Entity\Tests;
 
-$array =[
-  "question0" => "Вопрос654yry7",
-  "0answer0" => "Ответry7r7",
-  "0answer1" => "ответryry",
-  "question1" => "Вопросryry",
-  "1answer0" => "Ответryry"
-];
 
-function addFormstoBD($posts)
-{$newTest = new Tests();
-    $newTest ->setNameTest('TestsForms');
-    $newTest->setTitle('Тестируем добавление с формы');
-    foreach ($posts as $post=>$value)
-    {
-
-        if (preg_match('/question([0-9])/', $post))
-        {
-           $newQuestion = new Question();
-           $newQuestion->setQuestion($value);
-           $newQuestion->setTests($newTest);
-        }
-        else
-        {
-            $newAnswer = new Answer();
-            $newAnswer->setAnswer($value);
-            $newAnswer->setQuestions($newQuestion);
-    }
-    }
-}
 class TestForms
 {
     public function addFormstoBD($manager, $posts)
     {
-        $testArray = array();
-        $newTest = new Tests();
-        $newTest ->setNameTest('TestsForms');
-        $newTest->setTitle('Тестируем добавление с формы');
-        $manager->persist($newTest);
-        $questionTumbler = null;
+        if (empty($posts))
+        {
+            return false;
+        }
+
+       $newTest = new Tests();
+       $newTest ->setNameTest($posts['TestName']);
+       $newTest->setTitle($posts['title']);
+       $manager->persist($newTest);
+
         //________________________________________________
 
 
@@ -64,20 +40,29 @@ class TestForms
                 $newQuestion->setQuestion($value);
                 $newQuestion->setTests($newTest);
                 $newQuestion->setPoint(10);
-                 $manager->persist($newQuestion);
+
             }
-            else
+            elseif (preg_match('/score([0-9])/', $post))
+            {
+                $newQuestion->setPoint($value);
+                $manager->persist($newQuestion);
+            }
+            elseif(preg_match('/([0-9])answer([0-9])/', $post))
             {
                 $newAnswer = new Answer();
-                $newAnswer->setAnswer($value);
-                $newAnswer->setCorrect(true);
+                $newAnswer->setAnswer($value[0]);
                 $newAnswer->setQuestions($newQuestion);
+                if (empty($value[1]))
+                {
+                    $newAnswer->setCorrect(false);
+                }
+                else
+                {
+                    $newAnswer->setCorrect(true);
+                }
                 $manager->persist($newAnswer);
 
-
-
-
-                           }
+            }
 
 
                 $manager->flush();
