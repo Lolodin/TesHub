@@ -16,8 +16,8 @@
           <div class="main">
           <h1>Все тесты</h1>
           <div class="content">
-              <div class="descr">{{ test.nameTest}}</div>
-              <p>{{ test.title }} Категория:{{ test.categoryID.category }}</p>
+              <div class="descr" ><a href="tests/{{ test.id}}">{{ test.nameTest}}</a></div>
+              <p>{{ test.nameTest }} Категория:{{ test.title}}</p>
           </div>
       {% endfor %}
   {% endblock %}

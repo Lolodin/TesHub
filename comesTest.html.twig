@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block lastTest %}
+
+
+{% for question in test.question %}
+<p>{{ question.getQuestion}}</p>
+    {% for answer in question.getAnswer%}
+    <p>{{ answer.getAnswer}}</p><input name="id" type="checkbox" value="{{ answer.getId }}">
+        {% endfor %}
+{% endfor %}
+
+
+
+
+
+
+
+{% endblock %}
