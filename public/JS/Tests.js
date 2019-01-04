@@ -7,16 +7,18 @@ var objectQuest =
             return document.querySelectorAll('.addAnswer');
         }
     }
-
+//отслеживаем клик
 document.onclick = function (event) {
-    var target = event.target;
+    var target = event.target; //записываем клик в переменную target
 
-    if (target.className == 'addQuest') {
+    if (target.className == 'addQuest') { //target== addQuest
         event.preventDefault();
-        var addQuest = document.querySelector('.addQuest');
-        var questions = document.querySelector('.questions');
+        /*  Можно перенести в функцию */
+        var addQuest = document.querySelector('.addQuest'); // Добавляем кнопку в переменную
+        var questions = document.querySelector('.questions'); //Записываем блок с вопросами в questions
+       /* Создаем новый блок div с вопросом */
         var newQuestion = document.createElement('div');
-         objectQuest.indexQuest++;
+         objectQuest.indexQuest++; //Увеличиваем индефикатор вопроса на 1
          objectQuest.indexAnswer.push(0);
         newQuestion.id = "question" +objectQuest.indexQuest;
         newQuestion.innerHTML = '<input name="question' + objectQuest.indexQuest + '" value="Вопрос">' +

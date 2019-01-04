@@ -1,8 +1,100 @@
 header
 {
-    background: #47b6ff;
+    background: #47bcff;
+    height: 40px;
+    display: flex;
+
+    align-items: center;
+
 }
 html
 {
     background: #348fff;
+}
+.menu
+{
+
+height: 40px;
+    width: 120px;
+    border-right: 1px solid #9a61ff;
+   text-align: center ;
+    top: 25%;
+
+
+
+}
+.menu:first-child
+{
+
+    border-left: 1px solid #9a61ff;
+}
+
+
+nav
+{
+    display: flex;
+    flex-grow: 1;
+
+
+
+}
+.menu:hover
+{
+    background: #40b1ff;
+}
+.endheader
+{
+    background: #ff002b;
+
+}
+
+h1
+{
+  padding-right: 2%;
+}
+.mainblock
+{
+    display: flex;
+
+
+}
+.tests
+{
+
+
+    background: red;
+    width: 300px;
+    margin-left: 20px;
+}
+.LastsTest
+{
+    margin-left: 18%;
+   background: green;
+    height: 400px;
+    width: 200px;
+
+}
+.boldLine
+{
+    margin-top: 2%;
+
+    height: 20px;
+    background: #47bcff;
+    margin-bottom: 2%;
+    display: flex;
+
+}
+.boldTitle
+{
+
+
+   margin-left: 5%;
+    /*border-left: 1px solid red;*/
+    /*border-right:1px solid red ;*/
+flex-grow: 1;
+}
+.boldTitleLast
+{
+    margin-left: 5%;
+    flex-grow: 1.4;
 }

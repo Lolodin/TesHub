@@ -10,6 +10,7 @@ namespace App\Controller;
 
 
 use App\components\TestForms;
+use App\components\TestsFormsHandler;
 use App\Entity\Answer;
 use App\Entity\Category;
 use App\Entity\Categorys;
@@ -63,7 +64,7 @@ class DefaultController extends AbstractController
      */
 public function newtestform()
 {
-    var_dump($_SERVER);
+
     dump($_POST);
    $manager = $this->getDoctrine()->getManager();
    $formHandler= new TestForms();
@@ -81,12 +82,8 @@ public function newtestform()
         $test = array();
         $repository = $this->getDoctrine()->getRepository(Tests::class);
         $test = $repository->findAll();
-        $ajaxTest = json_encode($test);
-        dump($ajaxTest);
-        var_dump($ajaxTest);
-        dump($test);
-
-        return $this->render('standart/tests.html.twig', ['tests'=> $test]);
+        
+        return $this->render('standart/tets1.html.twig', ['tests'=> $test]);
 
     }
     /**
@@ -97,10 +94,15 @@ public function newtestform()
         $repository = $this->getDoctrine()->getRepository(Tests::class);
         $test = $repository->find($id);
 
+
         dump($test);
 
+      $arrrrr = TestsFormsHandler::addFormsToBD($test);
+      dump($arrrrr);
+       $arrrrA = json_encode($arrrrr, JSON_HEX_QUOT|JSON_HEX_APOS|JSON_HEX_AMP);
+dump($arrrrA);
 
-        return $this->render('standart/comesTest.html.twig',['test'=> $test]);
+        return $this->render('standart/comesTest.html.twig',['test'=> $test, 'json'=>$arrrrA]);
     }
 
     /**
