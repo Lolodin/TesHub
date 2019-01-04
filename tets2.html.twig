@@ -1,0 +1,25 @@
+{% extends 'myPage.html.twig' %}
+
+
+
+
+{% block body %}
+    <div class="mainblock">
+        <div class="tests">
+            {% for test in tests %}
+            <a class ="TestsName" href="/tests/{{ test.id }}">
+                {{ test.nameTest }}
+            </a>
+
+            <div class="testsTitle">
+                {{test.title}}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="LastsTest">
+            Последний тест
+
+        </div>
+    </div>
+{% endblock %}
