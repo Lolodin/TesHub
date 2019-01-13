@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block lastTest %}
+    <form id="form" action="" method="post">
 <div class="test">
 
 
@@ -7,8 +8,10 @@
 
 
 </div>
-
-
+    </form>
+<button class="Reply">Ответить</button>
+<button class="Backwards">Назад</button>
+    <button class="SendText">Завершить Тест</button>
 
 
 <script>
@@ -17,18 +20,76 @@
     {#console.log(question[0].question);#}
     var jsonArray = '{{ json| raw}}';
     var obj =JSON.parse(jsonArray);
-
+    var i = 0;
+    var mainQuestArray=[];
+    var maxI = obj.length;
     var testSelector = document.querySelector('.test');
 
 
 
+    function nextQ() {
+       return i =i+1;
+    }
+    function beforeQ() {
+        return i = i-1;
+    }
 
 
-
-
-
-    for (var i = 0; i<obj.length; i++)
+    function removeQuestion()
     {
+       var questionSelector = document.getElementById(i);
+        while (questionSelector.firstChild) {
+            questionSelector.removeChild(questionSelector.firstChild);
+        }
+        questionSelector.remove();
+    }
+    function formData() {
+
+        var divForm = document.getElementById('form');
+        var formData = new FormData(divForm);
+         mainQuestArray.push(formData);
+
+
+    }
+/* Return Form Data*/
+    function toJson() {
+        var formObject = new FormData();
+       for (let i=0;i<mainQuestArray.length;i++ )
+       {
+           for (let key of mainQuestArray[i].keys())
+           {
+               for (let a=0;a<mainQuestArray[i].getAll(key).length;a++ )
+               {
+                   formObject.append(key, mainQuestArray[i].getAll(key)[a])
+               }
+               break;
+           }
+       }
+    return formObject;
+    }
+
+function sendTest() {
+    var request = new XMLHttpRequest();
+    request.open('POST', '/testHandler', true);
+
+    request.send(toJson());
+    request.onreadystatechange = function () {
+        if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+            alert(request.responseText);
+        };
+    };
+    generateThx();
+
+}
+
+function generateThx() {
+    var thxselector = document.createElement('div');
+    thxselector.textContent = 'Вы завершили тест';
+    testSelector.appendChild(thxselector);
+}
+
+function generationTest()
+        {
         var questionSelector = document.createElement('div');
         var question = obj[i].question;
         questionSelector.textContent = question;
@@ -36,7 +97,6 @@
         testSelector.appendChild(questionSelector);
         var answers = obj[i].answers;
         console.log(answers);
-
 
         for(answer in answers)
         {
@@ -46,15 +106,67 @@
           var answerText = document.createElement('span');
 
           answerText.textContent = answers[answer][0];
-          testSelector.appendChild(answerText);
+          questionSelector.appendChild(answerText);
           answercheckbox.value = answers[answer][2];
-          testSelector.appendChild(answercheckbox);
+            answercheckbox.name = 'Question'+i+'[]';
+          questionSelector.appendChild(answercheckbox);
 
         }
         console.log(testSelector);
 
     }
+generationTest();
+ document.onclick = function (event) {
+        var target = event.target;
+        // button Reply
+        if (target.className == 'Reply' )
+        {
+             if (i >= maxI-1)
+             {
+                 event.preventDefault();
+                  formData();
+                  sendTest();
+                 removeQuestion();
+                 return true;
+             }
 
+            event.preventDefault();
+            formData();
+            removeQuestion();
+             nextQ();
+            generationTest();
+
+
+
+        }
+        //button Backwards
+        if (target.className =='Backwards')
+        {
+            if(i<=0)
+            {
+                event.preventDefault();
+                return false;
+            }
+            event.preventDefault();
+            removeQuestion();
+            beforeQ();
+            generationTest();
+
+
+        }
+
+        //sendTest Button
+     if (target.className =='SendTest')
+     {
+         event.preventDefault();
+         sendTest();
+         toJson();
+     }
+
+
+
+
+    }
 
 
 </script>
