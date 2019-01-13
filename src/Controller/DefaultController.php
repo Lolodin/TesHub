@@ -113,4 +113,14 @@ dump($arrrrA);
         return $this->render('standart/main.html.twig');
     }
 
+    /**
+     * @Route("/testHandler")
+     */
+    public function testHandler()
+    {
+
+
+        return new Response(json_encode($_POST));
+    }
+
 }

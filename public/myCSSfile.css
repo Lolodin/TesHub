@@ -62,14 +62,14 @@ h1
 {
 
 
-    background: red;
+    /*background: red;*/
     width: 300px;
     margin-left: 20px;
 }
 .LastsTest
 {
     margin-left: 18%;
-   background: green;
+   /*background: green;*/
     height: 400px;
     width: 200px;
 
