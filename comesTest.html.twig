@@ -85,7 +85,9 @@ function sendTest() {
     request.send(toJson());
     request.onreadystatechange = function () {
         if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-            alert(request.responseText);
+            let responseTextResult = document.createElement('li');
+            responseTextResult.textContent ='Тест пройден, получено быллов: ' + request.responseText;
+            testSelector.appendChild(responseTextResult);
         };
     };
     generateThx();
