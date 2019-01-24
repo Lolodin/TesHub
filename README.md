@@ -10,7 +10,7 @@ TestHub - сайт автоматического тестирования.
 ![](https://pp.userapi.com/c850536/v850536785/9bee6/uH5faJqyJa4.jpg)
 ![ajax](https://pp.userapi.com/c847016/v847016762/17e476/c1IGyGVq3r4.jpg)
 ## Фреймворки и технологии:
-1. Symfony для MVC
-2. Шаблонизатор Twig
-3. Bootstrap для стилей
-4. Ajax для получения результатов о пройденном Тесте 
+1. Symfony
+2. Twig
+3. Bootstrap
+4. Ajax
