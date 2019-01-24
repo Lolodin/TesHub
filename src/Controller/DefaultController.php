@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 
+use App\components\CheckTests;
 use App\components\TestForms;
 use App\components\TestsFormsHandler;
 use App\Entity\Answer;
@@ -29,35 +30,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DefaultController extends AbstractController
 {
 
-    /**
-     * @\Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("/news")
-     */
 
-    public function show()
-    {
-
-
-            return $this->render('standart/main.html.twig');
-
-
-
-
-    }
-
-    /**
-     * @\Sensio\Bundle\FrameworkExtraBundle\Configuration\Route("/")
-     */
-    public function homePage()
-
-
-    {
-
-
-    }
 
     /**
      * @Route("/new")
@@ -79,10 +57,10 @@ public function newtestform()
      */
     public function Test()
     {
-        $test = array();
+        $test = [];
         $repository = $this->getDoctrine()->getRepository(Tests::class);
         $test = $repository->findAll();
-        
+        dump($test);
         return $this->render('standart/tets1.html.twig', ['tests'=> $test]);
 
     }
@@ -91,22 +69,25 @@ public function newtestform()
      */
     public function TestID($id)
     {
+
         $repository = $this->getDoctrine()->getRepository(Tests::class);
         $test = $repository->find($id);
 
 
-        dump($test);
 
+        session_start();
       $arrrrr = TestsFormsHandler::addFormsToBD($test);
-      dump($arrrrr);
+
+
+      dump($_SESSION['test']);
        $arrrrA = json_encode($arrrrr, JSON_HEX_QUOT|JSON_HEX_APOS|JSON_HEX_AMP);
-dump($arrrrA);
+
 
         return $this->render('standart/comesTest.html.twig',['test'=> $test, 'json'=>$arrrrA]);
     }
 
     /**
-     * @Route("/mypage")
+     * @Route("/")
      */
     public function myPage()
     {
@@ -119,8 +100,25 @@ dump($arrrrA);
     public function testHandler()
     {
 
+        session_start();
 
-        return new Response(json_encode($_POST));
-    }
+if (isset($_SESSION['test'])) {
+    $a = $_SESSION['test'];
+    $checkTest = new CheckTests();
+    $checkTest->computedScore($_POST, $a);
+    return new Response(json_encode($checkTest->getScore()));
 
 }
+else
+    {
+
+    return new Response(json_encode($_POST));
+}
+    }
+
+    protected function createAccessDeniedException(string $message = 'Access Denied.', \Exception $previous = null): AccessDeniedException
+    {
+        return $this->render('@Twig/Exception/error.notFound.twig');
+    }
+}
+

@@ -2,18 +2,20 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    {% block title %}<title>TestHub!</title>{% endblock %}
+    {% block title %}<title>TestHub!</title> {% endblock %}
     {% block stylesheets %}
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <meta name="description" content="description"/>
         <meta name="keywords" content="keywords"/>
         <meta name="author" content="author"/>
-        <link rel="stylesheet" type="text/css" href={{ asset('/myCSSfile.css') }} media="screen"/>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('bootstrapAndMyCSS.css') }}">
     {% endblock %}
 </head>
 {% block header %}
 
-    <header><nav><a class="menu" href="/tests">Тесты</a><a class="menu">Создать тест</a><a class="menu">Регистрация</a><a class="menu">Главная</a></nav>  <h1>TestHub</h1></header>
+    <nav class="navbar navbar-dark bg-dark"><a class="navbar-brand" href="/tests">Тесты</a><a href="/new" class="navbar-brand">Создать тест</a><a class="navbar-brand">Регистрация</a><a class="navbar-brand">Главная</a></nav>
     <div class="boldLine"><span class="boldTitle">Тесты</span> <span class="boldTitleLast">Последние тесты</span></div>
 {% endblock %}
 
@@ -21,6 +23,8 @@
 
 <body>
 {% block body %}
+{% endblock %}
+{% block lastTest %}
 <div class="mainblock">
 <div class="tests">
     <div class ="TestsName">

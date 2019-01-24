@@ -1,0 +1,49 @@
+.question
+{
+    border: black solid 1px;
+    border-radius: 8px;
+    padding: 5px;
+    margin-bottom: 20px;
+    margin-right: 50px;
+}
+form
+{
+    margin-left: 50px;
+
+}
+.testDiv
+{
+    width: 50%;
+}
+.boldLine
+{
+    margin-top: 2%;
+
+    height: 20px;
+    background: #2590ff;
+    margin-bottom: 2%;
+    display: flex;
+    margin-left: -50px;
+
+}
+.score
+{
+    width: 150px;
+}
+.addAnswer
+{
+    margin-top: 10px;
+    margin-bottom: 2px;
+}
+.questions
+{
+    margin-right: 50px;
+}
+nav:hover
+{
+    background-color: #47bcff;
+}
+.Qblock
+{
+    margin-bottom: 10px;
+}

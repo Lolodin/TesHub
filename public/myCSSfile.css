@@ -98,3 +98,25 @@ flex-grow: 1;
     margin-left: 5%;
     flex-grow: 1.4;
 }
+.deleteAnswer, .deleteQuestion
+{
+    color: #3070ff;
+    background: #ffb098;
+}
+
+.question
+{
+    flex: content;
+    border: black solid 1px;
+    margin: 5px;
+}
+button
+{
+    background: #00d7ff;
+}
+.polzun
+{
+    flex-wrap: wrap;
+    width: 60px;
+
+}
