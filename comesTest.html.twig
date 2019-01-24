@@ -1,17 +1,22 @@
-{% extends 'base.html.twig' %}
+{% extends 'myPage.html.twig' %}
+{% block header %}
+
+    <nav class="navbar navbar-dark bg-primary"><a class="navbar-brand " href="/tests">Тесты</a><a href="/new" class="navbar-brand">Создать тест</a><a class="navbar-brand">Регистрация</a><a class="navbar-brand">Главная</a></nav>
+    <div class="boldLine"><span class="boldTitle"></span> <span class="boldTitleLast"> </span></div>
+{% endblock %}
 {% block lastTest %}
     <form id="form" action="" method="post">
-<div class="test">
+<ul class="test list-group">
 
 
 
 
 
-</div>
+</ul>
     </form>
-<button class="Reply">Ответить</button>
-<button class="Backwards">Назад</button>
-    <button class="SendText">Завершить Тест</button>
+<button class="Reply btn btn-primary">Ответить</button>
+<button class="Backwards btn btn-primary">Назад</button>
+    <button class="SendText btn btn-primary">Завершить Тест</button>
 
 
 <script>
@@ -24,6 +29,7 @@
     var mainQuestArray=[];
     var maxI = obj.length;
     var testSelector = document.querySelector('.test');
+    console.log(testSelector);
 
 
 
@@ -37,11 +43,15 @@
 
     function removeQuestion()
     {
-       var questionSelector = document.getElementById(i);
-        while (questionSelector.firstChild) {
-            questionSelector.removeChild(questionSelector.firstChild);
-        }
-        questionSelector.remove();
+     if (testSelector.firstChild)
+     {
+         while (testSelector.firstChild)
+         {
+            let a = testSelector.firstChild;
+            testSelector.removeChild(a);
+
+         }
+     }
     }
     function formData() {
 
@@ -90,10 +100,13 @@ function generateThx() {
 
 function generationTest()
         {
-        var questionSelector = document.createElement('div');
+        // let ulQuestion = document.createElement('ul');
+        // ulQuestion.classList.add('list-group');
+        var questionSelector = document.createElement('li');
         var question = obj[i].question;
-        questionSelector.textContent = question;
+        questionSelector.textContent = question + '   ';
         questionSelector.id = i;
+        questionSelector.classList.add('list-group-item','list-group-item-primary');
         testSelector.appendChild(questionSelector);
         var answers = obj[i].answers;
         console.log(answers);
@@ -103,13 +116,15 @@ function generationTest()
           var answercheckbox = document.createElement('input');
           answercheckbox.type = 'checkbox';
 
-          var answerText = document.createElement('span');
+          var answerText = document.createElement('li');
 
           answerText.textContent = answers[answer][0];
-          questionSelector.appendChild(answerText);
+          answerText.classList.add('list-group-item');
+
           answercheckbox.value = answers[answer][2];
             answercheckbox.name = 'Question'+i+'[]';
-          questionSelector.appendChild(answercheckbox);
+          answerText.appendChild(answercheckbox);
+            testSelector.appendChild(answerText);
 
         }
         console.log(testSelector);
@@ -119,7 +134,7 @@ generationTest();
  document.onclick = function (event) {
         var target = event.target;
         // button Reply
-        if (target.className == 'Reply' )
+        if (target.classList.contains('Reply'))
         {
              if (i >= maxI-1)
              {
@@ -140,7 +155,7 @@ generationTest();
 
         }
         //button Backwards
-        if (target.className =='Backwards')
+        if (target.classList.contains('Backwards'))
         {
             if(i<=0)
             {
@@ -156,7 +171,7 @@ generationTest();
         }
 
         //sendTest Button
-     if (target.className =='SendTest')
+     if (target.classList.contains('SendTest'))
      {
          event.preventDefault();
          sendTest();
