@@ -104,7 +104,7 @@ public function newtestform()
 
 if (isset($_SESSION['test'])) {
     $a = $_SESSION['test'];
-    $checkTest = new CheckTests();
+     $checkTest = new CheckTests();
     $checkTest->computedScore($_POST, $a);
     return new Response(json_encode($checkTest->getScore()));
 
