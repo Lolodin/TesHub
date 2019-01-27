@@ -5,18 +5,19 @@
     <div class="boldLine"><span class="boldTitle"></span> <span class="boldTitleLast"> </span></div>
 {% endblock %}
 {% block lastTest %}
-    <form id="form" action="" method="post">
-<ul class="test list-group">
+<form id="form" action="" method="post">
+    <ul class="test list-group">
 
 
 
 
 
-</ul>
-    </form>
+    </ul>
+</form>
 <button class="Reply btn btn-primary">Ответить</button>
 <button class="Backwards btn btn-primary">Назад</button>
-    <button class="SendText btn btn-primary">Завершить Тест</button>
+<button class="SendText btn btn-primary">Завершить Тест</button>
+<button class="skip btn btn-primary">Пропустить вопрос</button>
 
 
 <script>
@@ -29,12 +30,8 @@
     var mainQuestArray=[];
     var maxI = obj.length;
     var testSelector = document.querySelector('.test');
-    console.log(testSelector);
-
-
-
     function nextQ() {
-       return i =i+1;
+        return i =i+1;
     }
     function beforeQ() {
         return i = i-1;
@@ -43,67 +40,79 @@
 
     function removeQuestion()
     {
-     if (testSelector.firstChild)
-     {
-         while (testSelector.firstChild)
-         {
-            let a = testSelector.firstChild;
-            testSelector.removeChild(a);
 
-         }
-     }
+        if (testSelector.firstChild)
+        {
+            while (testSelector.firstChild)
+            {
+
+                let a = testSelector.firstChild;
+                testSelector.removeChild(a);
+
+            }
+        }
+
     }
-    function formData() {
+    function formData()
+    {
 
         var divForm = document.getElementById('form');
         var formData = new FormData(divForm);
-         mainQuestArray.push(formData);
-
+        mainQuestArray[i]=formData;
 
     }
-/* Return Form Data*/
-    function toJson() {
+    /* Return Form Data*/
+    function toJson()
+    {
+
         var formObject = new FormData();
-       for (let i=0;i<mainQuestArray.length;i++ )
-       {
-           for (let key of mainQuestArray[i].keys())
-           {
-               for (let a=0;a<mainQuestArray[i].getAll(key).length;a++ )
-               {
-                   formObject.append(key, mainQuestArray[i].getAll(key)[a])
-               }
-               break;
-           }
-       }
-    return formObject;
+        mainQuestArray = mainQuestArray.filter(arrays => arrays !=='empty');
+        console.log(mainQuestArray);
+        for (let a=0;a<mainQuestArray.length;a++ )
+        {
+
+            for (let key of mainQuestArray[a].keys())
+            {
+                for (let b=0;b<mainQuestArray[a].getAll(key).length;b++ )
+                {
+                    formObject.append(key, mainQuestArray[a].getAll(key)[b])
+                }
+                break;
+            }
+
+        }
+        return formObject;
+
     }
 
-function sendTest() {
-    var request = new XMLHttpRequest();
-    request.open('POST', '/testHandler', true);
-
-    request.send(toJson());
-    request.onreadystatechange = function () {
-        if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-            let responseTextResult = document.createElement('li');
-            responseTextResult.textContent ='Тест пройден, получено быллов: ' + request.responseText;
-            testSelector.appendChild(responseTextResult);
-        };
-    };
-    generateThx();
-
-}
-
-function generateThx() {
-    var thxselector = document.createElement('div');
-    thxselector.textContent = 'Вы завершили тест';
-    testSelector.appendChild(thxselector);
-}
-
-function generationTest()
+    function sendTest()
+    {
+        var request = new XMLHttpRequest();
+        request.open('POST', '/testHandler', true);
+        request.send(toJson());
+        request.onreadystatechange = function ()
         {
-        // let ulQuestion = document.createElement('ul');
-        // ulQuestion.classList.add('list-group');
+            if(request.readyState === XMLHttpRequest.DONE && request.status === 200)
+            {
+                let responseTextResult = document.createElement('li');
+                responseTextResult.textContent ='Тест пройден, получено быллов: ' + request.responseText;
+                testSelector.appendChild(responseTextResult);
+            };
+        };
+        generateThx();
+
+    }
+
+    function generateThx()
+    {
+        var thxselector = document.createElement('div');
+        thxselector.textContent = 'Вы завершили тест';
+        testSelector.appendChild(thxselector);
+    }
+
+    function generationTest()
+    {
+
         var questionSelector = document.createElement('li');
         var question = obj[i].question;
         questionSelector.textContent = question + '   ';
@@ -111,46 +120,47 @@ function generationTest()
         questionSelector.classList.add('list-group-item','list-group-item-primary');
         testSelector.appendChild(questionSelector);
         var answers = obj[i].answers;
-        console.log(answers);
 
         for(answer in answers)
         {
-          var answercheckbox = document.createElement('input');
-          answercheckbox.type = 'checkbox';
 
-          var answerText = document.createElement('li');
+            var answercheckbox = document.createElement('input');
+            answercheckbox.type = 'checkbox';
 
-          answerText.textContent = answers[answer][0];
-          answerText.classList.add('list-group-item');
+            var answerText = document.createElement('li');
 
-          answercheckbox.value = answers[answer][2];
-            answercheckbox.name = 'Question'+i+'[]';
-          answerText.appendChild(answercheckbox);
+            answerText.textContent = answers[answer][0];
+            answerText.classList.add('list-group-item');
+
+            answercheckbox.value = answers[answer][2];
+            answercheckbox.name = 'question'+i+'[]';
+            answerText.appendChild(answercheckbox);
             testSelector.appendChild(answerText);
 
         }
-        console.log(testSelector);
+
 
     }
-generationTest();
- document.onclick = function (event) {
+    generationTest();
+    document.onclick = function (event)
+    {
         var target = event.target;
         // button Reply
         if (target.classList.contains('Reply'))
         {
-             if (i >= maxI-1)
-             {
-                 event.preventDefault();
-                  formData();
-                  sendTest();
-                 removeQuestion();
-                 return true;
-             }
+            if (i >= maxI-1)
+            {
+                event.preventDefault();
+                formData();
+                sendTest();
+                removeQuestion();
+                return true;
+            }
 
             event.preventDefault();
             formData();
             removeQuestion();
-             nextQ();
+            nextQ();
             generationTest();
 
 
@@ -173,12 +183,20 @@ generationTest();
         }
 
         //sendTest Button
-     if (target.classList.contains('SendTest'))
-     {
-         event.preventDefault();
-         sendTest();
-         toJson();
-     }
+        if (target.classList.contains('SendTest'))
+        {
+            event.preventDefault();
+            sendTest();
+            toJson();
+        }
+        if (target.classList.contains('skip'))
+        {
+            event.preventDefault();
+
+            removeQuestion();
+            nextQ();
+            generationTest();
+        }
 
 
 
