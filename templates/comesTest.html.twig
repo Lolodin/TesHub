@@ -1,0 +1,25 @@
+{% extends 'myPage.html.twig' %}
+{% block header %}
+
+    <nav class="navbar navbar-dark bg-primary"><a class="navbar-brand " href="/tests">Тесты</a><a href="/new" class="navbar-brand">Создать тест</a><a class="navbar-brand">Регистрация</a><a class="navbar-brand">Главная</a></nav>
+    <div class="boldLine"><span class="boldTitle"></span> <span class="boldTitleLast"> </span></div>
+{% endblock %}
+{% block lastTest %}
+<form id="form" action="" method="post">
+    <ul class="test list-group">
+    </ul>
+</form>
+<button class="Reply btn btn-primary">Ответить</button>
+<button class="Backwards btn btn-primary">Назад</button>
+<button class="SendText btn btn-primary">Завершить Тест</button>
+<button class="skip btn btn-primary">Пропустить вопрос</button>
+
+
+<script>
+    {#var question = '{{ json| raw}}';#}
+    {#question = JSON.parse(question);#}
+    {#console.log(question[0].question);#}
+    var jsonArray = '{{ json| raw}}';
+ </script>
+ <script src="{{ asset('JS/passingTest.js') }}"></script>
+{% endblock %}
