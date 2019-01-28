@@ -102,9 +102,10 @@ public function newtestform()
 
         session_start();
 
-if (isset($_SESSION['test'])) {
+if (isset($_SESSION['test']))
+{
     $a = $_SESSION['test'];
-     $checkTest = new CheckTests();
+    $checkTest = new CheckTests();
     $checkTest->computedScore($_POST, $a);
     return new Response(json_encode($checkTest->getScore()));
 
@@ -113,12 +114,10 @@ else
     {
 
     return new Response(json_encode($_POST));
-}
+
+    }
     }
 
-    protected function createAccessDeniedException(string $message = 'Access Denied.', \Exception $previous = null): AccessDeniedException
-    {
-        return $this->render('@Twig/Exception/error.notFound.twig');
-    }
+
 }
 

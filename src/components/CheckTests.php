@@ -65,54 +65,5 @@ class CheckTests
             }
 
         }
-
-
-
-  /*     $score=0;
-        $questionID = 0;
-$questionID=$this->recFunction($post, $questionID);
-foreach ($post as $item)
-
-{
-    $checkArray = array();
-    if (empty($ssesions['question'.$questionID]['questionPoint'])===false) {
-        $score = $ssesions['question'.$questionID]['questionPoint'];
-    }
-    for ($i=0;$i<count($item);$i++)
-    {
-
-        $a = $item[$i];
-       try{ $checkArray[]=$ssesions['question'.$questionID][$a];}
-       catch (\ErrorException $exception){
-           $checkArray[]=false;
-
-       }
-
-
-    }
-    unset($ssesions['question'.$questionID]['questionPoint']);
-
-     if ($this->checkUP($checkArray))
-     {
-         $this->setScore($this->getScore() + $score);
-     }
-     else
-     {
-         $this->setScore($this->getScore() + 0);
-     }
-     $questionID++;
-}
-
-
-
-
-     */
-
-
-
-
-
-
-
     }
     }
